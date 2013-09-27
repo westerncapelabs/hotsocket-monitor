@@ -181,7 +181,11 @@ LOGGING = {
 }
 
 # Celery configuration options
-# BROKER_URL = 'redis://localhost:6379/0'
+BROKER_URL = 'amqp://guest:guest@localhost:5672/'
+
+CELERY_RESULT_BACKEND = "database"
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+
 # CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
 # Uncomment if you're running in DEBUG mode and you want to skip the broker
@@ -191,11 +195,34 @@ LOGGING = {
 # Tell Celery where to find the tasks
 # CELERY_IMPORTS = ('celery_app.tasks',)
 
+from datetime import timedelta
+
+CELERYBEAT_SCHEDULE = {
+    'login-every-24-hours': {
+        'task': 'monitor.tasks.run_tasks',
+        'schedule': timedelta(seconds=60),
+    },
+}
+
+
 # Defer email sending to Celery, except if we're in debug mode,
 # then just print the emails to stdout for debugging.
 EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+        # DEBUGGING STUFF
+    INTERNAL_IPS = ("http://127.0.0.1")
+
+    # EMAIL
+    # In order to debug do python smtp hosting on port 1025
+    EMAIL_HOST = "127.0.0.1"
+    # EMAIL_HOST_USER = "user"
+    # EMAIL_HOST_PASSWORD = ""
+    EMAIL_PORT = 1025
+    EMAIL_USER_TLS = True
+
+SENDER = ""
+RECIPIENT = ["admin@mail.com", "admin2@mail.com"]
 
 # Django debug toolbar
 DEBUG_TOOLBAR_CONFIG = {
