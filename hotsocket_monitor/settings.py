@@ -200,7 +200,7 @@ from datetime import timedelta
 CELERYBEAT_SCHEDULE = {
     'login-every-24-hours': {
         'task': 'monitor.tasks.run_tasks',
-        'schedule': timedelta(seconds=60),
+        'schedule': timedelta(hours=24),
     },
 }
 

@@ -44,7 +44,7 @@ def status_query(token):
         code = settings.HOTSOCKET_CODES
         try:
             now = datetime.now()
-            yesterday = now - timedelta(hours=240)
+            yesterday = now - timedelta(hours=24)
             data = {"username": settings.HOTSOCKET_USERNAME,
                     "token": token,
                     "start_date": yesterday.strftime("%Y-%m-%d"),
