@@ -1,0 +1,16 @@
+Django
+South
+gunicorn
+supervisor
+raven
+nose
+django-nose
+django-haystack
+psycopg2
+celery
+django-debug-toolbar
+django-celery
+django-celery-email
+pep8
+pyflakes
+fabric
